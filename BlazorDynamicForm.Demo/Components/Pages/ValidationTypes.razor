@@ -1,0 +1,150 @@
+﻿@page "/types"
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h5>Info</h5>
+            <p>This uses the built-in asp.net data annotations/validation features and you can add your own custom field validation attributes.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Email</label></strong>
+                <input style="width: calc(100% - 10px);" />
+                <div class="validation-message">Invalid email address</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[EmailAddress(ErrorMessage = "Invalid email address")]</code>
+                <code>public string Email { get; set; }</code>
+            </blockquote>
+            <p>The field requires an email address format.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Phone</label></strong>
+                <input style="width: calc(100% - 10px);" />
+                <div class="validation-message">Invalid phone number</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[Phone(ErrorMessage = "Invalid phone number")]</code>
+                <code>public string Numer { get; set; }</code>
+            </blockquote>
+            <p>The field requires a phone number format.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Url</label></strong>
+                <input style="width: calc(100% - 10px);" />
+                <div class="validation-message">Invalid url</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[Url(ErrorMessage = "Invalid url")]</code>
+                <code>public string Url { get; set; }</code>
+            </blockquote>
+            <p>The field requires a url format.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Url Https</label></strong>
+                <input style="width: calc(100% - 10px);" value="http://hello.world" />
+                <div class="validation-message">Secure https url is required</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[HttpsUrl(ErrorMessage = "Secure https url is required")]</code>
+                <code>public string Url { get; set; }</code>
+            </blockquote>
+            <p>The field requires a https url format.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Image Url</label></strong>
+                <input style="width: calc(100% - 10px);" />
+                <div class="validation-message">Not a valid image url.</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[ImageUrl(ErrorMessage = "Not a valid image url.")]</code>
+                <code>public string ImageUrl { get; set; }</code>
+            </blockquote>
+            <p>The field requires an image url format.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Base64</label></strong>
+                <input style="width: calc(100% - 10px);" />
+                <div class="validation-message">This is not a valid Base64 value</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[Base64String(ErrorMessage = "This is not a valid Base64 value")]</code>
+                <code>public string Code { get; set; }</code>
+            </blockquote>
+            <p>Restrict the field to base64 validation.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Credit Card</label></strong>
+                <input style="width: calc(100% - 10px);" value="1111---2222abd" />
+                <div class="validation-message">This is not a valid credit card number</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[CreditCard(ErrorMessage = "This is not a valid credit card number")]</code>
+                <code>public string Card { get; set; }</code>
+            </blockquote>
+            <p>Restrict the field to a credit card number format.</p>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    pre {
+        margin-bottom: 6px;
+    }
+
+    .dynamic-form-field {
+        margin-bottom: 10px;
+    }
+
+    .row {
+        margin-bottom: 20px;
+    }
+
+    code {
+        display: block;
+        color: white !important;
+        min-height: 20px;
+    }
+
+    blockquote {
+        background-color: #282A36 !important;
+        padding: 6px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>

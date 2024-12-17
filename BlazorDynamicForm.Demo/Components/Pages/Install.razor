@@ -1,0 +1,76 @@
+﻿@page "/install"
+
+<h4>Install BlazorDynamicForm</h4>
+<p>Look for the nuget package BlazorDynamicForm and install</p>
+<p>Add the service to Program.cs</p>
+<blockquote>
+<code>builder.Services.AddDynamicForm();</code>
+</blockquote>
+<h4>Model Class</h4>
+<p>Create a TestModel.cs to use as the form model/data. </p>
+<blockquote>
+    <code>public class TestModel</code>
+    <code>{</code>
+    <code style="margin-left: 30px;">[Required(ErrorMessage = "Name is required")]</code>
+    <code style="margin-left: 30px;">[DisplayName("Custom Name")]</code>
+    <code style="margin-left: 30px;">public string Name { get; set; }</code>
+    <code>}</code>
+</blockquote>
+
+<h4>Basic (Bootstrap Supported)</h4>
+<p>Create a Blazor component Form.razor</p>
+<blockquote>
+<code>@@page "/form"</code>
+<code></code>
+<code>@("<DynamicFormBasic ModelData=\"new TestModel()\" OnSubmit=\"@Submit\" CustomActions=\"@Actions\" Layout=\"@Layout\"></DynamicFormRadzen>")</code>
+<code></code>
+<code>@@code {</code>
+<code style="margin-left: 30px;">public DynamicFormLayout Layout = new DynamicFormLayout { ButtonShowReset = true };</code>
+<code></code>
+    <code style="margin-left: 30px;">@("public Dictionary<string, Func<TestModel, Task<string?>>> Actions = new Dictionary<string, Func<TestModel, Task<string?>>>();")</code>
+<code></code>
+    <code style="margin-left: 30px;">protected override void OnInitialized()</code>
+    <code style="margin-left: 30px;">{</code>
+    <code style="margin-left: 60px;">Actions.Add("Custom", CustomButton);</code>
+    <code style="margin-left: 30px;">}</code>
+<code></code>
+    <code style="margin-left: 30px;">@("public async Task<string?> Submit(TestModel data)")</code>
+    <code style="margin-left: 30px;">{</code>
+    <code style="margin-left: 60px;">return "This is a main error message"; // This is null if valid or error message if invalid</code>
+    <code style="margin-left: 30px;">}</code>
+<code></code>
+    <code style="margin-left: 30px;">@("public async Task<string?> CustomButton(TestModel data)")</code>
+    <code style="margin-left: 30px;">{</code>
+    <code style="margin-left: 60px;">return "This is a main error message"; // This is null if valid or error message if invalid</code>
+    <code style="margin-left: 30px;">}</code>
+    <code>}</code>
+</blockquote>
+
+
+<h4>Radzen Components</h4>
+<p>You can use this if you have Radzen components installed.</p>
+<a href="https://blazor.radzen.com/get-started?theme=standard-dark" target="_blank">https://blazor.radzen.com/get-started?theme=standard-dark</a>
+<br />
+<br />
+<blockquote>
+    <code>@("<DynamicFormRadzen ModelData=\"new TestModel()\" OnSubmit=\"@Submit\" CustomActions=\"@Actions\" Layout=\"@Layout\"></DynamicFormRadzen>")</code>
+</blockquote>
+
+<style>
+    pre {
+        margin-bottom: 6px;
+    }
+
+    code {
+        display: block;
+        color: white !important;
+        min-height: 20px;
+    }
+
+    blockquote {
+        background-color: #282A36 !important;
+        padding: 6px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>

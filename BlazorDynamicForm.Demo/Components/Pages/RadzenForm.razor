@@ -1,0 +1,51 @@
+﻿@page "/radzen"
+
+<PageTitle>Test Page</PageTitle>
+
+<h3>Test</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <DynamicFormRadzen ModelData="new RadzenModel()" OnSubmit="@Submit"
+                               CustomActions="@Actions" InputVariant="Variant.Outlined" OnError="@Error" Layout="@Layout"></DynamicFormRadzen>
+        </div>
+        <div class="col">
+            <img src="example.png" />
+        </div>
+    </div>
+</div>
+
+<style>
+    img {
+    max-width: 100%;
+    }
+</style>
+
+@code {
+    public DynamicFormLayout Layout = new DynamicFormLayout { ButtonShowReset = true };
+
+    public Dictionary<string, Func<RadzenModel, Task<string?>>> Actions = new Dictionary<string, Func<RadzenModel, Task<string?>>>();
+
+    protected override void OnInitialized()
+    {
+        Actions.Add("Custom", CustomButton);
+    }
+
+
+    public async Task<string?> Submit(RadzenModel data)
+    {
+        await Task.Delay(new TimeSpan(0, 0, 5));
+        return "This is a main error message";
+    }
+
+    public async Task Error(RadzenModel data, DynamicFormError[] errors)
+    {
+
+    }
+
+    public async Task<string?> CustomButton(RadzenModel data)
+    {
+        return null;
+    }
+}

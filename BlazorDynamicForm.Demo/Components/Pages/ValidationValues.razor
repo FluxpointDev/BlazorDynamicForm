@@ -1,0 +1,230 @@
+﻿@page "/values"
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h5>Info</h5>
+            <p>This uses the built-in asp.net data annotations/validation features and you can add your own custom field validation attributes.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Required</label></strong>
+                <input style="width: calc(100% - 10px);" />
+                <div class="validation-message">Name is required</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[Required(ErrorMessage = "Name is required")]</code>
+                <code>public string Name { get; set; }</code>
+            </blockquote>
+            <p>The field requires some value.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>String Length</label></strong>
+                <input style="width: calc(100% - 10px);" />
+                <div class="validation-message">Description is required and has a max character count of 300</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[StringLength(1, 300, ErrorMessage = "Description is required and has a max character count of 300")]</code>
+                <code>public string Name { get; set; }</code>
+            </blockquote>
+            <p>The field has a minimum and maximum character count.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Compare New Password</label></strong>
+                <input style="width: calc(100% - 10px);" type="password" autocomplete="new-password" />
+                <strong><label>Compare Repeat Password</label></strong>
+                <input style="width: calc(100% - 10px);" type="password" autocomplete="new-password" />
+                <div class="validation-message">The passwords do not match</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[PasswordPropertText]</code>
+                <code>public string NewPassword { get; set; }</code>
+                <code></code>
+                <code>[PasswordPropertText]</code>
+                <code>[Compare("NewPassword", ErrorMessage = "The passwords do not match")]</code>
+                <code>public string RepeatPassword { get; set; }</code>
+            </blockquote>
+            <p>The field has a minimum and maximum character count.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Range</label></strong>
+                <input style="width: calc(100% - 10px);" type="number" min="1", max="10" value="0" />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[Range(1, 10)]</code>
+                <code>public int Number { get; set; }</code>
+            </blockquote>
+            <p>Limits a number value between 2 numbers.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Range Slider</label></strong>
+                <input style="width: calc(100% - 10px);" type="range" min="1" , max="100" />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[Range(1, 100)]</code>
+                <code>[RangeSlider]</code>
+                <code>public int Number { get; set; }</code>
+            </blockquote>
+            <p>Combines with Range to change the look of the input to a slider.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Range Steps</label></strong>
+                <input style="width: calc(100% - 10px);" type="range" min="0" max="50" step="10" />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[Range(0, 50)]</code>
+                <code>[RangeStep(10)]</code>
+                <code>public int Number { get; set; }</code>
+            </blockquote>
+            <p>Combines with Range to restrict a number multiplied e.g 0/10/20/30/40.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Enum</label></strong>
+                <pre>Male, Female, Other, Trans</pre>
+                <input style="width: calc(100% - 10px);" value="Apache Helicopter" />
+                <div class="validation-message">Please enter a valid gender</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[EnumDataType(typeof(Gender), ErrorMessage = "Please enter a valid gender")]</code>
+                <code>public string Gender { get; set; }</code>
+            </blockquote>
+            <p>Restrict a string to contain an enum value.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Expression</label></strong>
+                <input style="width: calc(100% - 10px);" value="user123" />
+                <div class="validation-message">Name must contain only A-z letters</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[RegularExpression(@@"^[a-zA-Z]+$", ErrorMessage = "Name must contain only A-z letters")]</code>
+                <code>public int Name { get; set; }</code>
+            </blockquote>
+            <p>Limit an input with regex expression.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Allowed Values</label></strong>
+                <input style="width: calc(100% - 10px);" value="Food" />
+                <div class="validation-message">You need to enter either Cake or Biscuit</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[AllowedValues(new string[] { "Cake", "Biscuit" }, ErrorMessage = "You need to enter either Cake or Biscuit")]</code>
+                <code>public string Food { get; set; }</code>
+            </blockquote>
+            <p>Restrict the field to certain values.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Denied Values</label></strong>
+                <input style="width: calc(100% - 10px);" value="TikTok" />
+                <div class="validation-message">No more tiktok for you</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[DeniedValues(new string[] { "TikTok" }, ErrorMessage = "No more tiktok for you")]</code>
+                <code>public string Social { get; set; }</code>
+            </blockquote>
+            <p>Restrict the field to not allow certain values.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Custom Validation</label></strong>
+                <input style="width: calc(100% - 10px);" />
+                <div class="validation-message">Error message here</div>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]</code>
+                <code>public class MyValidationAttribute : ValidationAttribute</code>
+                <code>{</code>
+                <code style="margin-left: 30px;">    public MyValidationAttribute()</code>
+                <code style="margin-left: 30px;">    {</code>
+                <code style="margin-left: 60px;">        ErrorMessage = "Error message here";</code>
+                <code style="margin-left: 30px;">    }</code>
+                <code style="margin-left: 30px;">    public override bool IsValid(object value)</code>
+                <code style="margin-left: 30px;">    {</code>
+                <code style="margin-left: 60px;">        return false;</code>
+                <code style="margin-left: 30px;">    }</code>
+                <code>}</code>
+            </blockquote>
+            <p>Create a custom data validation attribute that you can apply to your properties.</p>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    pre {
+        margin-bottom: 6px;
+    }
+
+    .dynamic-form-field {
+        margin-bottom: 10px;
+    }
+
+    .row {
+        margin-bottom: 20px;
+    }
+
+    code {
+        display: block;
+        color: white !important;
+        min-height: 20px;
+    }
+
+    blockquote {
+        background-color: #282A36 !important;
+        padding: 6px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>

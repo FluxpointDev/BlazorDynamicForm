@@ -1,0 +1,88 @@
+﻿@using Radzen
+@using Radzen.Blazor
+@namespace BlazorDynamicForm
+@typeparam Model
+@inherits DynamicFormRadzenBase<Model>
+
+<div class="dynamic-form dynamic-form-radzen">
+    @if (Service == null)
+    {
+        <p>Dynamic Form Service has not been initialized.</p>
+    }
+    else if (FormItems == null)
+    {
+
+    }
+    else
+    {
+        @foreach (var field in FormItems)
+        {
+            @if (field.IsHidden)
+            {
+                @RenderFormElement(DynamicRadzenTheme.Instance, CloneData, field, field.Property)
+            }
+            else
+            {
+                <div class="dynamic-form-field">
+                    <strong><RadzenLabel Text="@field.Label"></RadzenLabel></strong>
+                    @if (!string.IsNullOrEmpty(field.Description))
+                    {
+                        <RadzenText TextStyle="TextStyle.Body1" TagName="TagName.Pre" Text="@field.Description" />
+                    }
+                    @RenderFormElement(DynamicRadzenTheme.Instance, CloneData, field, field.Property)
+                    @if (!string.IsNullOrEmpty(field.ErrorMessage))
+                    {
+                        <RadzenAlert Size="AlertSize.ExtraSmall" ShowIcon="false" Variant="Variant.Text" AlertStyle="AlertStyle.Danger" Shade="@WarningShade" AllowClose="false" class="dynamic-form-validation-message-main dynamic-form-validation-message">
+                            @field.ErrorMessage
+                        </RadzenAlert>
+                    }
+                </div>
+            }
+
+        }
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <RadzenAlert Variant="Variant.Filled" AlertStyle="AlertStyle.Danger" Shade="@WarningShade" AllowClose="false" class="dynamic-form-validation-message-main dynamic-form-validation-message" role="alert">
+                @ErrorMessage
+            </RadzenAlert>
+        }
+        <div class="dynamic-form-actions" style="@Layout.GetFlex()">
+            <RadzenButton Click="@SubmitData" Text="@Layout.ButtonSubmitText" ButtonStyle="ButtonStyle.Success" Shade="@ButtonShade" Variant="@ButtonVariant" Disabled="@LoadingSubmit" IsBusy="@LoadingSubmit" />
+            @if (Layout.ButtonShowReset)
+            {
+                <RadzenButton Click="@Reset" Text="@Layout.ButtonResetText" ButtonStyle="ButtonStyle.Warning" Shade="@ButtonShade" Variant="@ButtonVariant" Disabled="@LoadingSubmit" />
+            }
+            @if (CustomActions != null)
+            {
+                @foreach (var i in CustomActions)
+                {
+                    <RadzenButton Click="@(() => i.Value?.Invoke(CloneData))" Text="@i.Key" ButtonStyle="ButtonStyle.Info" Shade="@ButtonShade" Variant="@ButtonVariant" Disabled="@LoadingSubmit" />
+                }
+            }
+        </div>
+    }
+</div>
+
+<style>
+    pre {
+        margin-bottom: 6px;
+    }
+
+    .dynamic-form-field {
+        margin-bottom: 10px;
+    }
+
+    .dynamic-form-actions {
+        display: flex;
+        gap: 8px !important;
+    }
+</style>
+
+<script>
+    function DynamicFormSetColor(name, value) {
+        var element = document.getElementById('dynamicField' + name);
+        if (element)
+            element.childNodes[0].style = 'background-color: ' + value + ';';
+    }
+</script>

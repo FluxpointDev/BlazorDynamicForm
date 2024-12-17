@@ -1,0 +1,44 @@
+@using System.ComponentModel.DataAnnotations
+@using System.ComponentModel
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Reflection
+@using Microsoft.AspNetCore.Components.Rendering
+@using Newtonsoft.Json
+@using System.Linq.Expressions
+@using Microsoft.AspNetCore.Components.Web
+@typeparam Model
+@inherits DynamicFormCodeRequest<Model>
+
+<div class="dynamic-form">
+    <form accept-charset="@AcceptedCharset" action="@Action" enctype="@EncodeType" method="@Method" name="@Name" rel="@Rel" target="@Target">
+    @foreach (var field in FormItems)
+    {
+        <div class="dynamic-form-field">
+            <label class="dynamic-form-label">@field.Label</label>
+            @if (!string.IsNullOrEmpty(field.Description))
+            {
+                <pre>@field.Description</pre>
+                <span>@field.Description</span>
+                <blockquote>@field.Description</blockquote>
+                <cite>@field.Description</cite>
+            }
+                @RenderFormElement(DynamicClassicTheme.Instance, CloneData, field, field.Property)
+            @if (!string.IsNullOrEmpty(field.ErrorMessage))
+            {
+                <div class="validation-message dynamic-form-validation-message">@field.ErrorMessage</div>
+            }
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <div class="validation-message  dynamic-form-validation-message-main dynamic-form-validation-message">@ErrorMessage</div>
+    }
+    <div class="dynamic-form-actions">
+        <button class="btn" @onclick="@SubmitData">@Layout.ButtonSubmitText</button>
+        @if (Layout.ButtonShowReset)
+        {
+            <button class="btn" @onclick="@Reset">@Layout.ButtonResetText</button>
+        }
+    </div>
+    </form>
+</div>

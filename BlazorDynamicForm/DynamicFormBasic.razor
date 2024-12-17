@@ -1,0 +1,135 @@
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Reflection
+@using Microsoft.AspNetCore.Components.Rendering
+@using Newtonsoft.Json
+@using Microsoft.AspNetCore.Components.Web
+@typeparam Model
+@inherits DynamicFormCodeBase<Model>
+@using Microsoft.Extensions.DependencyInjection
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </symbol>
+</svg>
+
+<div class="dynamic-form dynamic-form-classic">
+    @if (Service == null)
+    {
+        <p>Dynamic Form Service has not been initialized.</p>
+    }
+    else if (FormItems == null)
+    {
+
+    }
+    else
+    {
+        @foreach (var field in FormItems)
+        {
+            @if (field.IsHidden)
+            {
+                @RenderFormElement(DynamicClassicTheme.Instance, CloneData, field, field.Property)
+            }
+            else
+            {
+                <div class="dynamic-form-field">
+                    <strong><label class="dynamic-form-label">@field.Label</label></strong>
+                    @if (!string.IsNullOrEmpty(field.Description))
+                    {
+                        <pre>@field.Description</pre>
+                    }
+                    @RenderFormElement(DynamicClassicTheme.Instance, CloneData, field, field.Property)
+                    @if (!string.IsNullOrEmpty(field.ErrorMessage))
+                    {
+                        <div class="validation-message dynamic-form-validation-message">@field.ErrorMessage</div>
+                    }
+                </div>
+            }
+
+        }
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert alert-danger dynamic-form-validation-message-main dynamic-form-validation-message" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+                @ErrorMessage
+            </div>
+        }
+        <div class="dynamic-form-actions" style="@Layout.GetFlex()">
+            @if (LoadingSubmit)
+            {
+                <button class="btn btn-success" @onclick="@SubmitData" disabled>@Layout.ButtonSubmitText</button>
+            }
+            else
+            {
+                <button class="btn btn-success" @onclick="@SubmitData">@Layout.ButtonSubmitText</button>
+            }
+
+            @if (Layout.ButtonShowReset)
+            {
+                @if (LoadingSubmit)
+                {
+                    <button class="btn btn-warning" @onclick="@Reset" disabled>@Layout.ButtonResetText</button>
+                }
+                else
+                {
+                    <button class="btn btn-warning" @onclick="@Reset">@Layout.ButtonResetText</button>
+                }
+            }
+            @if (CustomActions != null)
+            {
+                @foreach(var i in CustomActions)
+                {
+                    if (LoadingSubmit)
+                    {
+                        <button class="btn btn-info" @onclick="@(() => i.Value?.Invoke(CloneData))" disabled>@i.Key</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-info" @onclick="@(() => i.Value?.Invoke(CloneData))">@i.Key</button>
+                    }
+                    
+                }
+            }
+        </div>
+    }
+</div>
+
+<style>
+    pre {
+        margin-bottom: 6px;
+    }
+    .dynamic-form-field {
+        margin-bottom: 10px;
+    }
+
+    .dynamic-form-actions {
+        display: flex;
+        gap: 8px !important;
+    }
+
+    /* Remove number arrows */
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+<script>
+    function DynamicFormSetField(name, value) {
+        var element = document.getElementById('dynamicField' + name);
+        if (element) {
+            if (element.type === 'checkbox')
+                document.getElementsByName(name)[0].checked = value;
+            else
+                document.getElementsByName(name)[0].value = value;
+        }
+    }
+</script>

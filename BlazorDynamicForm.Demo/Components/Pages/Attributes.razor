@@ -1,0 +1,210 @@
+﻿@page "/attributes"
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Display Name</label></strong>
+                <input style="width: calc(100% - 10px);" />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[DisplayName("Display Name")]</code>
+                <code>public string Name { get; set; }</code>
+            </blockquote>
+            <p>Set an alternative name to show as the field title.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Description</label></strong>
+                <pre>Hello World!</pre>
+                <input style="width: calc(100% - 10px);" />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[Description("Hello World!")]</code>
+                <code>public string Desc { get; set; }</code>
+            </blockquote>
+            <p>Set a description for the field.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Text Area</label></strong>
+                <textarea style="width: calc(100% - 10px);" />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[FieldTextArea]</code>
+                <code>public string TextArea { get; set; }</code>
+            </blockquote>
+            <p>Show a multiline text area.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Placeholder</label></strong>
+                <input style="width: calc(100% - 10px);" placeholder="Hm?" />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[FieldPlaceholder("Hm?")]</code>
+                <code>public string Placeholder { get; set; }</code>
+            </blockquote>
+            <p>Set a temp placeholder to show.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <h5>Auto Complete</h5>
+                <strong><label>Email</label></strong>
+                <input style="width: calc(100% - 10px);" autocomplete="email" />
+                <strong><label>Password</label></strong>
+                <input style="width: calc(100% - 10px);" type="password" autocomplete="new-password" />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[EmailAddress]</code>
+                <code>[FieldAutoComplete(AutoCompleteType.Email)]</code>
+                <code>public string Email { get; set; }</code>
+                <code> </code>
+                <code>[PasswordPropertyText]</code>
+                <code>[FieldAutoComplete(AutoCompleteType.NewPassword)]</code>
+                <code>public string Password { get; set; }</code>
+            </blockquote>
+            <p>Let browsers and password managers autofill details for you.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Password Field</label></strong>
+                <input style="width: calc(100% - 10px);" type="password" autocomplete="current-password" />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[PasswordPropertyText]</code>
+                <code>[FieldAutoComplete(AutoCompleteType.CurrentPassword)]</code>
+                <code>public string Password { get; set; }</code>
+            </blockquote>
+            <p>This will set the input to mask characters as *****.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Color</label></strong>
+                <input style="width: calc(100% - 10px);" type="color" />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[FieldColor]</code>
+                <code>public string Color { get; set; }</code>
+            </blockquote>
+            <p>Set the field to show a color picker.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Read-Only</label></strong>
+                <input style="width: calc(100% - 10px);" value="<3" readonly />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[ReadOnly(true)]</code>
+                <code>public string Text { get; set; }</code>
+            </blockquote>
+            <p>The input will be marked as read-only and can't be edited.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Hints</label></strong>
+                <pre>Type a letter first to show hints.</pre>
+                <input style="width: calc(100% - 10px);" list="Animal" />
+                <datalist id="Animal"><option value="Cat"></option><option value="Dog"></option><option value="Snake"></option><option value="Sheep"></option><option value="Duck"></option><option value="Horse"></option><option value="Lizard"></option><option value="Bird"></option><option value="Penguin"></option><option value="Fish"></option></datalist>
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[FieldHints(new string[] { "Cat", "Dog", "Snake", "Sheep", "Duck", "Horse", "Lizard", "Bird", "Penguin", "Fish" })]</code>
+                <code>public string Animal { get; set; }</code>
+            </blockquote>
+            <p>Show hints for the field that can be optionally selected.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Hidden</label></strong>
+                <input style="width: calc(100% - 10px);" type="hidden" />
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[Hidden]</code>
+                <code>public string Secret { get; set; }</code>
+            </blockquote>
+            <p>This field will be hidden but can be spoofed if using EditContext POST form.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="dynamic-form-field">
+                <strong><label>Custom Attribute</label></strong>
+                <input style="width: calc(100% - 10px);" test="value" />
+                @("<input test=\"value\" />")
+            </div>
+        </div>
+        <div class="col">
+            <blockquote>
+                <code>[FieldCustom("test", "value")]</code>
+                <code>public string Text { get; set; }</code>
+            </blockquote>
+            <p>This will add the html attribute to the input test="value"</p>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    pre {
+        margin-bottom: 6px;
+    }
+
+    .dynamic-form-field {
+        margin-bottom: 10px;
+    }
+
+    .row {
+        margin-bottom: 20px;
+    }
+
+    code {
+        display: block;
+        color: white !important;
+        min-height: 20px;
+    }
+
+    blockquote {
+        background-color: #282A36 !important;
+        padding: 6px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>

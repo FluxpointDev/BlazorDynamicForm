@@ -1,0 +1,51 @@
+﻿@page "/classic"
+
+<PageTitle>Test Page</PageTitle>
+
+<h3>Test</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <DynamicFormBasic ModelData="@(new TestModel() { Name = "Test" })" OnSubmit="@Submit"
+                              CustomActions="@Actions" OnError="@Error" Layout="@Layout"></DynamicFormBasic>
+        </div>
+        <div class="col">
+            <img src="example.png" />
+        </div>
+    </div>
+</div>
+
+<style>
+    img {
+    max-width: 100%;
+    }
+</style>
+
+@code {
+    public DynamicFormLayout Layout = new DynamicFormLayout { ButtonShowReset = true };
+
+    public Dictionary<string, Func<TestModel, Task<string?>>> Actions = new Dictionary<string, Func<TestModel, Task<string?>>>();
+
+    protected override void OnInitialized()
+    {
+        Actions.Add("Custom", CustomButton);
+    }
+
+
+    public async Task<string?> Submit(TestModel data)
+    {
+        await Task.Delay(new TimeSpan(0, 0, 5));
+        return "This is a main error message";
+    }
+
+    public async Task Error(TestModel data, DynamicFormError[] errors)
+    {
+
+    }
+
+    public async Task<string?> CustomButton(TestModel data)
+    {
+        return null;
+    }
+}
