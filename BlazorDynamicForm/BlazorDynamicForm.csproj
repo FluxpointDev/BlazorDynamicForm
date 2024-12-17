@@ -2,6 +2,7 @@
 
   <PropertyGroup>
       <IncludeSymbols>true</IncludeSymbols>
+	  <IsPackable>true</IsPackable>
 	  <TargetFrameworks>net8.0</TargetFrameworks>
 	  <RazorLangVersion>7.0</RazorLangVersion>
 	  <LangVersion>latest</LangVersion>
@@ -12,6 +13,9 @@
       <Version>1.0.0</Version>
       <Authors>Builderb</Authors>
       <Company>luxpoint Development</Company>
+      <PackageProjectUrl>https://fluxpoint.dev</PackageProjectUrl>
+      <RepositoryUrl>https://github.com/FluxpointDev/BlazorDynamicForm</RepositoryUrl>
+      <PackageId>Fluxpoint.BlazorDynamicForm</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

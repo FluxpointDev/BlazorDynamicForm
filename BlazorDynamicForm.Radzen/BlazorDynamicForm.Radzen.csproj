@@ -2,12 +2,20 @@
 
 	<PropertyGroup>
 		<IncludeSymbols>true</IncludeSymbols>
+		<IsPackable>true</IsPackable>
 		<TargetFrameworks>net8.0</TargetFrameworks>
 		<RazorLangVersion>7.0</RazorLangVersion>
 		<LangVersion>latest</LangVersion>
 		<OutputType>Library</OutputType>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<PackageId>Fluxpoint.BlazorDynamicForm.Radzen</PackageId>
+		<Title>Blazor Dynamic Form (Radzen Components)</Title>
+		<Version>1.0.0</Version>
+		<Authors>Builderb</Authors>
+		<Company>Fluxpoint Development</Company>
+		<PackageProjectUrl>https://fluxpoint.dev</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/FluxpointDev/BlazorDynamicForm</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
